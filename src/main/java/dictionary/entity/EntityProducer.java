@@ -4,10 +4,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import java.io.BufferedWriter;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,9 +29,7 @@ public class EntityProducer {
 
     private static String listToString(List<String> list){
         StringBuilder sb = new StringBuilder();
-        list.forEach(s -> {
-            sb.append(s.replaceAll("-","").replaceAll(";",",").trim()).append(",");
-        });
+        list.forEach(s -> sb.append(s.replaceAll("-","").replaceAll(";",",").trim()).append(","));
         return  sb.toString();
     }
 
@@ -41,7 +38,7 @@ public class EntityProducer {
     }
     private static String[] getTranslateAndComment(String word){
         String[] context = new String[2];
-        Document doc = null;   //представляет собой html код страницы
+        Document doc;   //представляет собой html код страницы
         try {
             doc = Jsoup.connect("https://wooordhunt.ru/word/"+word).get();
         } catch (IOException e) {
